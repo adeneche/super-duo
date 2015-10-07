@@ -22,6 +22,8 @@ import it.jaschke.alexandria.api.Callback;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, Callback {
 
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
