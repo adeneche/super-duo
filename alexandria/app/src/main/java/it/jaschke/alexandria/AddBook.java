@@ -108,6 +108,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     }
 
     private void addBook(String ean) {
+        Log.i(TAG, "addBook(" + ean + ")");
         //catch isbn10 numbers
         if(ean.length() == 10 && !ean.startsWith("978")){
             ean="978" + ean;
@@ -133,7 +134,8 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         if (requestCode == SCAN_REQ_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 String ean = data.getStringExtra(BarcodeScanner.RESULT_KEY);
-                addBook(ean);
+                this.ean.setText(ean);
+//                addBook(ean);
             }
         }
     }
@@ -163,7 +165,9 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
+        Log.i(TAG, "onLoadFinished");
         if (!data.moveToFirst()) {
+            Log.i(TAG, "!data.moveToFirst");
             return;
         }
 
