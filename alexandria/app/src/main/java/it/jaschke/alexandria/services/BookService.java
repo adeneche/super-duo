@@ -128,8 +128,13 @@ public class BookService extends IntentService {
                 return;
             }
             bookJsonString = buffer.toString();
+            if (bookJsonString == null) {
+                sendMessage(getResources().getString(R.string.connection_problem));
+                return;
+            }
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Error ", e);
+            sendMessage(getResources().getString(R.string.connection_problem));
+            return;
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -196,11 +201,17 @@ public class BookService extends IntentService {
                 writeBackCategories(ean,bookInfo.getJSONArray(CATEGORIES) );
             }
 
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, "Error ", e);
+        } catch (Exception e) {
+            sendMessage(getResources().getString(R.string.connection_problem));
+            return;
         }
     }
 
+    private void sendMessage(String message) {
+        Intent messageIntent = new Intent(MainActivity.MESSAGE_EVENT);
+        messageIntent.putExtra(MainActivity.MESSAGE_KEY, message);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(messageIntent);
+    }
     private void writeBackBook(String ean, String title, String subtitle, String desc, String imgUrl) {
         ContentValues values= new ContentValues();
         values.put(AlexandriaContract.BookEntry._ID, ean);
