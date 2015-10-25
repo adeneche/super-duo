@@ -38,5 +38,6 @@
     <!-- Strings related to Widgets -->
     <string name="title_widget_football">Football Scores</string>
     <string name="widget_text">This is a widget probably.</string>
+    <string name="share_btn">Share Score</string>
     <string name="empty_string"></string>
 </resources>
